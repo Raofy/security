@@ -9,11 +9,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 
 import javax.sql.DataSource;
 
+/**
+ * 配置登录拦截策略
+ *
+ */
 @EnableWebSecurity
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -33,20 +41,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessUrl("/security/login")
                 .permitAll();
+
     }
 
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-//        UserDetails user =
-//                User.withDefaultPasswordEncoder()
-//                        .username("user")
-//                        .password("password")
-//                        .roles("USER")
-//                        .build();
-//
-//        return new InMemoryUserDetailsManager(user);
-//    }
+    @Bean
+    @Override
+    public UserDetailsService userDetailsService() {
+        UserDetails user =
+                User.withDefaultPasswordEncoder()
+                        .username("user")
+                        .password("password")
+                        .roles("USER")
+                        .build();
+
+        return new InMemoryUserDetailsManager(user);
+    }
 
 //    @Override
 //    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -55,26 +64,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-    @Autowired
-    public void initialize(AuthenticationManagerBuilder builder, DataSource dataSource) {
-        try {
-            builder.jdbcAuthentication().dataSource(dataSource).withUser("fuyi")
-                    .password("123456").roles("USER");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    @Autowired
+//    public void initialize(AuthenticationManagerBuilder builder, DataSource dataSource) {
+//        try {
+//            builder.jdbcAuthentication().dataSource(dataSource).withUser("fuyi")
+//                    .password("123456").roles("USER");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
-    /**
-     * 解决 无法直接注入 AuthenticationManager
-     *
-     * @return
-     * @throws Exception
-     */
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
 }

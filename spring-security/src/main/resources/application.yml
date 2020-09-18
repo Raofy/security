@@ -6,6 +6,11 @@ spring:
     username: root
     password: MyNewPass4!
     driver-class-name: com.mysql.jdbc.Driver
+#  security:
+#    user:
+#      name: user
+#      password: 123456
+#      roles: USER
 
 #mybatis-plus配置
 mybatis-plus:
