@@ -1,0 +1,23 @@
+
+spring:
+  thymeleaf:
+    cache: false
+  datasource:
+    url:  jdbc:mysql://47.112.240.174:3306/spring-security?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: MyNewPass4!
+    driver-class-name: com.mysql.jdbc.Driver
+#  security:
+#    user:
+#      name: user
+#      password: 123456
+#      roles: USER
+
+#mybatis-plus配置
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-value: 1
+      logic-not-delete-value: 0
